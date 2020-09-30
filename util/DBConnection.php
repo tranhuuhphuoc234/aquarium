@@ -31,13 +31,14 @@ function checkExist($table,$column,$value)
     {
         $query = "SELECT $column FROM $table WHERE $column =$value";
     }
-    $check = sqlsrv_query($conn,$query);
-    if ($check == 0)
+    $check = sqlsrv_has_rows(sqlsrv_query($conn,$query));
+    
+    if ($check)
     {
-        return false;
+        return true;
     }
     else{
-       return true;
+       return false;
     }
 }
 function Create($item ){

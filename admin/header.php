@@ -126,6 +126,12 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
+                                    <a href="addtype.php" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Type</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
                                     <a href="pages/forms/advanced.html" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Fish</p>

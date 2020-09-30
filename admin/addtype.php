@@ -1,7 +1,7 @@
 <?php
     include_once("header.php");
     include_once("..\util\DBConnection.php");
-    include_once("..\dao\location.php")
+    include_once("../dao/type.php")
  ?>
 <?php
 $statusTrue = false;
@@ -13,11 +13,11 @@ $stuatusExist = false;
         {
            
         $var = $_GET["location"];
-        if(!checkExist("location","locationname",$var))
+        if(!checkExist("type","typename",$var))
         {
-        $location = new location();
-        $location -> setlocationname($var);
-        $location -> setlocationstatus(1);
+        $location = new type();
+        $location -> settypename($var);
+        $location -> settypestatus(1);
         if(Create($location))
         {
             $statusTrue = true;
@@ -41,9 +41,9 @@ $stuatusExist = false;
             <div class="col-4">
                 <form action="" method="get">
                     <div class="form-group center-item">
-                        <label  for="location">Location</label>
+                        <label  for="location">Type</label>
                         <input type="location" class="form-control" id="" aria-describedby=""
-                            placeholder="Enter location" name="location" required>
+                            placeholder="Enter type" name="location" required>
                     </div>
                     <div class="center-item"><button name="submit" value="submit" type="submit"
                             class="btn-sm btn-dark button-size">Add</button></div>
@@ -61,7 +61,7 @@ $stuatusExist = false;
                     }
                     if($stuatusExist == true)
                     {
-                        echo" <p class=\"text-danger center-item\">Location name already exists </p>";
+                        echo" <p class=\"text-danger center-item\">Type name already exists </p>";
                     }
                  ?>
 
