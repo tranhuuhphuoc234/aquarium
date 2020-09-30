@@ -1,0 +1,229 @@
+body{
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+}
+ul{
+    list-style: none;
+}
+#navbar{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 60px;
+    /* box-shadow: 2px 2px 12px #2d5135; */
+    padding: 0 40px;
+    transition: top 0.5s;
+    top: 0;
+    position: fixed;
+    width: 100%;
+    
+   
+}
+#navbar-display{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 60px;
+    box-shadow: 2px 2px 12px #2d5135;
+    padding: 0 40px;
+    transition: top 1s;
+    top: -80px;
+    position: fixed;
+    width: 100%;
+    background-color: #98e2bd;
+    background: linear-gradient(to bottom, #0066cc 0%, #99ccff 100%);
+   
+}
+nav ul{
+    float: right;
+    display: flex;
+    margin-bottom: 0;
+}
+ nav ul li a{
+    font-size:15px;
+    font-weight: bold;
+    color:black;
+    margin: 30px;
+}
+ nav ul li a:hover{
+    color: white;
+    text-decoration: none;
+    font-size: 20px;
+    transition: 0.5s;
+}
+#checkbox{
+    display: none;
+}
+#check-btn{
+    font-size: 30px;
+    color: white;
+    cursor: pointer;  
+   position: absolute;
+}
+
+
+.logo {
+    position: relative;
+    top: 6px;
+    left: 80px;
+}
+.footer-first{
+    display: flex;
+    justify-content: space-between;
+    padding: 30px 30px;
+    background: linear-gradient(to top, #0066cc 0%, #99ccff 100%);
+}
+.about-us{
+    width: 50%;
+}
+.link{
+    width: 32%;
+}
+.contact{
+    width: 40%;
+}
+
+.link,.about-us,.contact{
+    padding: 20px; 
+}
+
+.first-footer{
+    background: linear-gradient(to top, #0066cc 0%, #99ccff 100%);
+}
+.icons-bar{
+    position: fixed;
+    top: 45%;
+    right: 0;
+    transform: translateY(-50%);
+}
+
+.icons-bar a{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    height: 50px;
+    margin: 0;
+    line-height: 0px;
+    text-decoration: none;
+    background-color: white;
+    border: 1px solid black;
+    box-shadow: 2px 2px 12px black;
+    padding: 25px;
+}
+.icons-bar a:hover{
+    transition: all ease 0.5s;
+    background-color: gray;
+}
+
+.icons-bar a i{
+    color: black;
+    font-size: 20px;
+}
+
+.late{
+    display: flex;
+    position: absolute;
+    left: 31%;   
+}
+.late a{
+    text-decoration: none;
+    color: black;
+}
+.footer-second{
+    height: 29px;
+    background: linear-gradient(to top, #0066ff 0%, #0099ff 100%);
+}
+ 
+@media (max-width: 750px){
+    nav ul{
+        margin: 0;
+        padding: 0;
+        background-color: red;
+        flex-direction: column;
+        position:fixed;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100vh;
+        box-sizing: border-box;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1;
+        display: none;
+        
+    }
+    nav ul li{
+        padding: 30px;
+    }
+    nav ul li a{
+        font-size: 1.5em;
+    }
+    nav ul li a:hover{
+        color: green;
+    }
+    .icon-bars:before{
+        content: '\f0c9';
+        font-family: fontAwesome;
+        line-height: 30px;
+        z-index: 1;
+    }
+    .icon-bars.active:before{
+        content: '\f00d';
+        position: fixed;
+        right: 30px;
+        line-height: 0px;
+    }
+    nav.active ul{
+        display: flex !important;
+    }
+    .late{
+        left:15%;
+    }
+    footer{
+        height: auto;
+    }
+    .footer-first{
+        flex-wrap: wrap;
+    }
+    .link,.about-us,.contact{
+        flex-grow: 1;
+        margin: 5px;
+        width: 50%;
+        height: 210px;
+    }
+}
+
+@media (max-width: 565px){
+    footer{
+        height: auto;
+    }
+    .footer-first{
+        flex-wrap: wrap;
+    }
+    .link,.about-us,.contact{
+        flex-grow: 1;
+        margin: 5px;
+    }
+}
+
+@media (max-width:360px){
+    .link,.about-us,.contact{
+        height: 225px;
+    }
+    .late{
+        font-size: 10px;
+    }
+    .icons-bar{
+       padding: 0;
+    }
+}
+
+.link p a{
+    color: black;
+}
+
+
+
