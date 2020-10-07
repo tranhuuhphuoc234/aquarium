@@ -27,8 +27,18 @@
     <link rel="stylesheet" href="plugins/summernote/summernote-bs4.css">
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+    <!-- ckeditor -->
+    <script src="..\admin\plugins\ckeditor\ckeditor.js"></script>
+    <!-- Jquerry -->
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <!-- JquerryUI -->
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <!-- Jquerry css -->
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <!-- My style-->
     <link rel="stylesheet" href="..\admin\css\mystyle.css">
+ 
+
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -132,13 +142,13 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="pages/forms/advanced.html" class="nav-link">
+                                    <a href="addfish.php" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Fish</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="pages/forms/editors.html" class="nav-link">
+                                    <a href="addticket.php" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Ticket</p>
                                     </a>

@@ -1,7 +1,7 @@
 <?php
     include_once("header.php");
     include_once("..\util\DBConnection.php");
-    include_once("../dao/type.php")
+    include_once("../dao/type.php");
  ?>
 <?php
 $statusTrue = false;
@@ -40,7 +40,7 @@ $stuatusExist = false;
             <div class="col-4"></div>
             <div class="col-4">
                 <form action="" method="get">
-                    <div class="form-group center-item">
+                    <div class="form-group">
                         <label  for="location">Type</label>
                         <input type="location" class="form-control" id="" aria-describedby=""
                             placeholder="Enter type" name="location" required>

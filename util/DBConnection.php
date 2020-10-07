@@ -41,6 +41,31 @@ function checkExist($table,$column,$value)
        return false;
     }
 }
+function getSelectedItems($table,$column)
+{
+    $returnArr = array();
+    $conn = OpenConnection();
+    $stmt = "Select $column from $table";
+    $query = sqlsrv_query($conn, $stmt);
+    while($row = sqlsrv_fetch_array($query, SQLSRV_FETCH_ASSOC))
+    {
+        array_push($returnArr,$row[$column]);
+    }
+    return $returnArr;
+
+}
+function getId($table,$val)
+{
+    $conn = OpenConnection();
+    $columnname = $table."id";
+    $valcolumnname = $table."name";
+    $stmt = "SELECT $columnname FROM $table WHERE $valcolumnname = '$val'";
+    $query = sqlsrv_query($conn, $stmt);
+    $row = sqlsrv_fetch_array($query, SQLSRV_FETCH_ASSOC);
+    
+        return $row[$table."id"];
+    
+}
 function Create($item ){
     try{
         $conn = OpenConnection();
