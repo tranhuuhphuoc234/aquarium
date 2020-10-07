@@ -1,3 +1,0 @@
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;includeWithVariables(&quot;popup.php&quot;,array(&#39;title&#39;=&gt;&#39;Sucessfully&nbsp;Added&#39;,&#39;color&#39;=&gt;&#39;#dc3545&#39;,&#39;content&#39;&nbsp;=&gt;$fishscientificname.&#39;&nbsp;has&nbsp;been&nbsp;added&nbsp;to&nbsp;database&#39;));</p>
-
-<p>&nbsp;</p>
