@@ -29,15 +29,16 @@
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
     <!-- ckeditor -->
     <script src="..\admin\plugins\ckeditor\ckeditor.js"></script>
-    <!-- Jquerry -->
-    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-    <!-- JquerryUI -->
+    <!-- Jquery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- JquerrUI -->
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <!-- Jquerry css -->
+    <!-- Jquery css -->
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <!-- My style-->
     <link rel="stylesheet" href="..\admin\css\mystyle.css">
- 
+
+
 
 </head>
 
@@ -194,9 +195,9 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="pages/tables/simple.html" class="nav-link">
+                                    <a href="table.php" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>Simple Tables</p>
+                                        <p>Fish</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">

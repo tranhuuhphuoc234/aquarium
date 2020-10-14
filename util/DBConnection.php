@@ -41,6 +41,42 @@ function checkExist($table,$column,$value)
        return false;
     }
 }
+function getTableValues($stmt,$page,$columnname)
+{
+    $conn = OpenConnection();
+    $query = sqlsrv_query($conn,$stmt);
+    $i = 0;
+    while($row = sqlsrv_fetch_array($query, SQLSRV_FETCH_ASSOC))
+    {
+        echo  "<tr>";
+        echo "<td>$i</td>";
+       
+        foreach ($columnname as $key)
+    {
+        
+        echo "<td>  $row[$key] </td>";
+        
+    }
+    $fishid = $row['fishid'];
+    if ($row['fishstatus'] == 1 )
+        {
+            echo  "<td>  <input class=\"form-check-input ml-3 check\" type=\"checkbox\"value=\"option1\" id =\"$fishid\" name=\"checkbox\" aria-label=\"...\" checked style='position: inherit;'>
+        </td>";
+        }
+        else
+        {echo  "<td>     <input class=\"form-check-input ml-3 check\" type=\"checkbox\"value=\"option1\" id =\"$fishid\" name=\"checkbox\" aria-label=\"...\" style='position: inherit';>
+            </td>";}
+    
+        echo "<td>
+        <a href=\"#myModal\" class=\"edit\" data-val=$fishid  data-toggle=\"modal\"><i class=\"material-icons\" data-val=$fishid  data-toggle=\"tooltip\" title=\"Edit\">&#xE254;</i></a>
+        <a href=\"#deleteEmployeeModal\" class=\"delete\" data-val=$fishid  data-toggle=\"modal\"><i class=\"material-icons\" data-toggle=\"tooltip\" title=\"Delete\">&#xE872;</i></a>
+            </td>";
+        echo "</tr>";
+        $i++;
+    }
+
+    
+}
 function getSelectedItems($table,$column)
 {
     $returnArr = array();

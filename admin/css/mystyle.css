@@ -9,7 +9,8 @@
 }
 .form-control:focus {
     border-color: #495057;
-    box-shadow:0 0 0 0.2rem lightgray
+    box-shadow:0 0 0 0.2rem lightgray;
+
 }
 .ui-widget-header-red{
     background: coral;

@@ -86,7 +86,7 @@ if (isset($_POST['submit'])) {
                    $fish->setfishdetail($fishscientificname.".txt");
                    if(Create($fish))
                    {
-                       includeWithVariables("popup.php",array('title'=>'Sucessfully Added','color'=>'#dc3545','content' =>$fishscientificname.' has been added to database'));
+                       includeWithVariables("popup.php",array('title'=>'Sucessfully Added','color'=>'#28a745','content' =>$fishscientificname.' has been added to database'));
 
                    }
                    else
@@ -225,7 +225,7 @@ if (isset($_POST['submit'])) {
             </div>
             <div class="col-2"></div>
 
-            </form>
+           
         </div>
     </div>
 </div>
