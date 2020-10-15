@@ -165,11 +165,20 @@
     <script>
     $(document).ready(function() {
         $('[data-toggle="tooltip"]').tooltip();
-        $('.edit').click(function(){
+        $('.edit.fish').click(function(){
             var id = $(this).attr('value');
-            alert(id);
-            var productid = $(id).closest('.onRow').find('td:nth-child(1)').text();
-            alert(productid);
+            var fish_name = $(this).closest('tr').find('td:nth-child(2)').text();
+            var fish_scientific_name = $(this).closest('tr').find('td:nth-child(3)').text();
+            var fish_type =  $(this).closest('tr').find('td:nth-child(4)').text();
+            var fish_location =  $(this).closest('tr').find('td:nth-child(5)').text();
+            var fish_size =  $(this).closest('tr').find('td:nth-child(6)').text();
+            var fish_weight =  $(this).closest('tr').find('td:nth-child(7)').text();
+            var fish_habitat =  $(this).closest('tr').find('td:nth-child(8)').text();
+            var fish_diet =  $(this).closest('tr').find('td:nth-child(9)').text();
+            var fish_gestationperiod =  $(this).closest('tr').find('td:nth-child(10)').text();
+            var fish_achievableage =  $(this).closest('tr').find('td:nth-child(11)').text();
+            var fish_status =  $(this).closest('tr').find('td:nth-child(12)').text();
+            alert(fishname)
     });
     });
    
