@@ -1,69 +1,63 @@
 <?php
     include 'header.php';
- ?>
-<style>
-#images {
-    height: 200px;
-    width: 212px;
-    /* background-color: red; */
-    margin-right: 25px;
-    margin-bottom: 25px;
-    display: inline-block;
-}
+    include 'util\DBConnection.php';
+?>
+<?php
+ $conn = OpenConnection();
+ $sql = "SELECT DISTINCT TOP 12 * FROM fish ";
+ $getanimal = sqlsrv_query($conn,$sql);
 
-.fish {
-    border: 4px solid transparent;
-    border-image: url('images/border-1.png') 4 4 4 repeat;
-    /* border-image-outset: 3px; */
-}
-
-#images:hover {
-    transform: rotate(2deg);
-}
-</style>
-<div>
-    <img src="images/panel-header-3.png" alt="" style="width: 100%;">
-</div>
-<div style="background: url(images/blue-snow.png); height: 1300px; width: 100%;">
-    <div class="container-fluid" style="padding-top: 50px;">
-        <div class="container col-8 centerPage">
-            <div style="margin-bottom: 15px;">
-                <span
-                    style="font-size: 42px;font-weight: 500;color: #00789a;line-height: 1em;letter-spacing: -.04em; ">Our
-                    animals in the Aquarium</span>
-            </div>
-            <div style="margin-bottom: 30px;">
-                <span style="font-size: 23px; font-weight: 500;">Let's find your favorite marine</span>
-            </div>
-            <div class="list-animals" style="display: block;">
-                <div id="images">
-                    <img class="fish" src="images/animal1.jpg" alt="">
-                    <span
-                        style="font-size: 23px;font-weight: 500;color: #00789a;line-height: 1em;letter-spacing: -.04em; ">
-                        <a href="">Cá chà bặc</a>
-                    </span>
-                </div>
-                <div id="images">
-                    <img class="fish" src="images/animal2.jpg" alt="">
-                    <span
-                        style="font-size: 23px;font-weight: 500;color: #00789a;line-height: 1em;letter-spacing: -.04em;">
-                        <a href="">Cá
-                        hề</a>
-                    </span>
-                </div>
-                <div id="images">
-                    <img class="fish" src="images/animal3.jpg" alt="">
-                    <span
-                        style="font-size: 23px;font-weight: 500;line-height: 1em;letter-spacing: -.04em;">
-                        <a href="" style="color: #00789a;">Cá
-                        đeo hề</a>
-                    </span>
-                </div>
-
-            </div>
+?>
+<div class="container" style="margin-top:10vh">
+    <!-- div 1 -->
+    <div id="c5997" class="csc-default intro-copy">
+        <div class="csc-header csc-header-n1">
+            <h1 class="csc-firstHeader">Our animals in the Aquarium Berlin</h1>
         </div>
+        <p class="bodytext">Marine life across the alphabet from anemonefish to turtles – find your favourite species
+            with us at the Aquarium Berlin!</p>
+    </div>
+    <!-- div 2 -->
+    <div>
+    <?php
+             while($row = sqlsrv_fetch_array($getanimal, SQLSRV_FETCH_ASSOC))
+             {
+                $fishid=$row['fishid'];
+                 $fishname=$row['fishname'];
+                 if ($fishid) {
+                    $query="SELECT * From images i join fish f on i.fishid=f.fishid where fishid=$fishid";
+                    $get_namefish = sqlsrv_query($conn,$sql);
+                    $row=sqlsrv_fetch_array($get_namefish,SQLSRV_FETCH_ASSOC);
+                    if ($row) {
+                        $namefish=$row['fishscientificname'];
+                    }else{
+                        echo 'ngu';
+                    }
+                    
+                 }
+                 ?>
+        
+            <!-- first -->
+            <div id="first-part " style="display:inline-block;" class="part-general ">
+                <div class="above" id="general">
+                    <div class="imagewrap" id="general">
+                        <div class="center-outer" id="general">
+                            <div class="center-inner" id="general">
+                                <div id="general" class="image-part-last"><img src="uploads\$namefish"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="csc-header csc-header-n1">
+                    <h1 class="csc-firstHeader"><a href="infor_animal.php?fishid=<?php echo $fishname ?>">
+                            <?php echo $fishname ?> </a></h1>
+                </div>
+            </div>
+        <?php
+             }
+     ?>
     </div>
 </div>
 <?php
     include 'footer.php';
- ?>
+?>

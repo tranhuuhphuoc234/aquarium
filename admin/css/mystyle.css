@@ -9,5 +9,20 @@
 }
 .form-control:focus {
     border-color: #495057;
-    box-shadow:0 0 0 0.2rem lightgray
-} 
+    box-shadow:0 0 0 0.2rem lightgray;
+
+}
+.ui-widget-header-red{
+    background: coral;
+}
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}

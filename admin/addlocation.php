@@ -40,7 +40,7 @@ $stuatusExist = false;
             <div class="col-4"></div>
             <div class="col-4">
                 <form action="" method="get">
-                    <div class="form-group center-item">
+                    <div class="form-group ">
                         <label  for="location">Location</label>
                         <input type="location" class="form-control" id="" aria-describedby=""
                             placeholder="Enter location" name="location" required>
