@@ -68,8 +68,8 @@ function getTableValues($stmt,$page,$columnname)
             </td>";}
     
         echo "<td>
-        <a href=\"#myModal\" class=\"edit\" data-val=$fishid  data-toggle=\"modal\"><i class=\"material-icons\" data-val=$fishid  data-toggle=\"tooltip\" title=\"Edit\">&#xE254;</i></a>
-        <a href=\"#deleteEmployeeModal\" class=\"delete\" data-val=$fishid  data-toggle=\"modal\"><i class=\"material-icons\" data-toggle=\"tooltip\" title=\"Delete\">&#xE872;</i></a>
+        <a href=\"#myModal\" class=\"edit\" value=\"$i\"  data-toggle=\"modal\"><i class=\"material-icons\" value=$\"fishid\"  data-toggle=\"tooltip\" title=\"Edit\">&#xE254;</i></a>
+        <a href=\"#deleteEmployeeModal\" class=\"delete\" data-val=$i  data-toggle=\"modal\"><i class=\"material-icons\" data-toggle=\"tooltip\" title=\"Delete\">&#xE872;</i></a>
             </td>";
         echo "</tr>";
         $i++;

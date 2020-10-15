@@ -165,11 +165,14 @@
     <script>
     $(document).ready(function() {
         $('[data-toggle="tooltip"]').tooltip();
-
-        $('#myModal').click(function(){
-        alert($(this).attr('data-val'));
-    })
+        $('.edit').click(function(){
+            var id = $(this).attr('value');
+            alert(id);
+            var productid = $(id).closest('.onRow').find('td:nth-child(1)').text();
+            alert(productid);
     });
+    });
+   
    
     </script>
 </head>
