@@ -135,7 +135,7 @@
             style="background-color: red; display: flex; width: 100%; padding-left: 130px; top: -90px;">
             <!-- Open Time  -->
             <div class="col-2" id="margin-card">
-                <div class="card middle" style="">
+                <div class="card middle">
                     <div class="front"
                         style="background-image: url(images/1.jpg); padding-top: 8px; padding-left: 7px;">
                         <div style="position: absolute;">

@@ -1,4 +1,3 @@
-
 <?php
 include_once("header.php");
   echo "  <script>
@@ -23,6 +22,5 @@ include_once("header.php");
 </div>";
 include_once("footer.php")
  ?>
-  
  
  

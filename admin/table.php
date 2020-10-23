@@ -1,214 +1,61 @@
-<!DOCTYPE html>
+<?php
+    include_once('..\admin\header.php');
+    include_once('..\util\DBConnection.php');
+    $string_column_name = $_REQUEST['column_name'];
+    $column_name = explode(',', $string_column_name);
+    $string_column_name_data  = $_REQUEST['column_name_data'];
+    $column_name_data = explode(',', $string_column_name_data);
+    $stmt = $_REQUEST['stmt'];
+    $table = $_REQUEST['table'];
 
-<html lang="en">
-
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Bootstrap Simple Data Table</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="..\admin\css\mystyle.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-       <!-- ckeditor -->
-    <script src="..\admin\plugins\ckeditor\ckeditor.js"></script>
-
-
-    <style>
-    body {
-        color: #566787;
-        background: #f5f5f5;
-        font-family: 'Roboto', sans-serif;
+    
+ ?>
+ <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+                 <!-- Content Wrapper. Contains page content -->
+  <?php
+    if ($table == 'fish')
+    {
+      echo "  <div class=\"content-wrapper\" style=\"width: fit-content;\">";
     }
-
-    .table-responsive {
-        margin: 30px 0;
+    else{
+      echo "  <div class=\"content-wrapper\">";
     }
+   ?>
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>DataTables</h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active">DataTables</li>
+            </ol>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
 
-    .table-wrapper {
-        min-width: 1000px;
-        background: #fff;
-        padding: 20px;
-        box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
-    }
-
-    .table-title {
-        padding-bottom: 10px;
-        margin: 0 0 10px;
-        min-width: 100%;
-    }
-
-    .table-title h2 {
-        margin: 8px 0 0;
-        font-size: 22px;
-    }
-
-    .search-box {
-        position: relative;
-        float: right;
-    }
-
-    .search-box input {
-        height: 34px;
-        border-radius: 20px;
-        padding-left: 35px;
-        border-color: #ddd;
-        box-shadow: none;
-    }
-
-    .search-box input:focus {
-        border-color: #3FBAE4;
-    }
-
-    .search-box i {
-        color: #a0a5b1;
-        position: absolute;
-        font-size: 19px;
-        top: 8px;
-        left: 10px;
-    }
-
-    table.table tr th,
-    table.table tr td {
-        border-color: #e9e9e9;
-
-    }
-
-    table.table-striped tbody tr:nth-of-type(odd) {
-        background-color: #fcfcfc;
-    }
-
-    table.table-striped.table-hover tbody tr:hover {
-        background: #f5f5f5;
-    }
-
-    table.table th i {
-        font-size: 13px;
-        margin: 0 5px;
-        cursor: pointer;
-    }
-
-    table.table td:last-child {
-        width: 130px;
-    }
-
-    table.table td a {
-        color: #a0a5b1;
-        display: inline-block;
-        margin: 0 5px;
-    }
-
-    table.table td a.view {
-        color: #03A9F4;
-    }
-
-    table.table td a.edit {
-        color: #FFC107;
-    }
-
-    table.table td a.delete {
-        color: #E34724;
-    }
-
-    table.table td i {
-        font-size: 19px;
-    }
-
-    .pagination {
-        float: right;
-        margin: 0 0 5px;
-    }
-
-    .pagination li a {
-        border: none;
-        font-size: 95%;
-        width: 30px;
-        height: 30px;
-        color: #999;
-        margin: 0 2px;
-        line-height: 30px;
-        border-radius: 30px !important;
-        text-align: center;
-        padding: 0;
-    }
-
-    .pagination li a:hover {
-        color: #666;
-    }
-
-    .pagination li.active a {
-        background: #03A9F4;
-    }
-
-    .pagination li.active a:hover {
-        background: #0397d6;
-    }
-
-    .pagination li.disabled i {
-        color: #ccc;
-    }
-
-    .pagination li i {
-        font-size: 16px;
-        padding-top: 6px
-    }
-
-    .hint-text {
-        float: left;
-        margin-top: 6px;
-        font-size: 95%;
-    }
-    </style>
-    <script>
-    $(document).ready(function() {
-        $('[data-toggle="tooltip"]').tooltip();
-        $('.edit.fish').click(function(){
-            var id = $(this).attr('value');
-            var fish_name = $(this).closest('tr').find('td:nth-child(2)').text();
-            var fish_scientific_name = $(this).closest('tr').find('td:nth-child(3)').text();
-            var fish_type =  $(this).closest('tr').find('td:nth-child(4)').text();
-            var fish_location =  $(this).closest('tr').find('td:nth-child(5)').text();
-            var fish_size =  $(this).closest('tr').find('td:nth-child(6)').text();
-            var fish_weight =  $(this).closest('tr').find('td:nth-child(7)').text();
-            var fish_habitat =  $(this).closest('tr').find('td:nth-child(8)').text();
-            var fish_diet =  $(this).closest('tr').find('td:nth-child(9)').text();
-            var fish_gestationperiod =  $(this).closest('tr').find('td:nth-child(10)').text();
-            var fish_achievableage =  $(this).closest('tr').find('td:nth-child(11)').text();
-            var fish_status =  $(this).closest('tr').find('td:nth-child(12)').text();
-            alert(fishname)
-    });
-    });
-   
-   
-    </script>
-</head>
-
-<body>
-    <div class="container-xl">
-        <div class="table-responsive">
-            <div class="table-wrapper">
-                <div class="table-title">
-                    <div class="row">
-                        <div class="col-sm-8">
-                            <h2> <b>Details</b></h2>
-                        </div>
-                        <div class="col-sm-4">
-                            <div class="search-box">
-                                <i class="material-icons">&#xE8B6;</i>
-                                <input type="text" class="form-control" placeholder="Search&hellip;">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <table class="table table-striped table-hover table-bordered">
-
-                    <thead>
-                        <tr>
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12">
+ <!-- /.card -->
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">DataTable with default features</h3>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+              <table id="myTable" class="table table-bordered table-striped">
+                <thead>
+                  <tr>
                             <?php
-                            $column_name = array("Fish Name","Fish Scientific Name","Type","Location","Size","Weight","Habitat","Diet","Gestationperiod","Achievableage","Status");
+
                             echo "<th>#</th>";
                             foreach ($column_name as $item )
                             {
@@ -220,76 +67,68 @@
                         </tr>
                     </thead>
                     <tbody>
-                      <?php
-                        include_once("..\util\DBConnection.php");
-                        $column_name = array('fishname','fishscientificname','typename','locationname','size','weight','habitat','gestationperiod','achievableage','status','fishstatus');
-                        getTableValues("Select top 24 fishid,fishname,fishscientificname,typename,locationname,size,weight,habitat,gestationperiod,achievableage,status,fishstatus from fish join type on type.typeid = fish.typeid join location on location.locationid = fish.locationid
-                        ",0,$column_name)
+                        <?php
+                        getTableValues($table,$stmt,1,$column_name_data)
                        ?>
-                    </tbody>
+                     </tbody>
+             
                 </table>
-                <div class="clearfix">
-                    <div class="hint-text">Showing <b>5</b> out of <b>25</b> entries</div>
-                    <ul class="pagination">
-                        <li class="page-item disabled"><a href="#"><i class="fa fa-angle-double-left"></i></a></li>
-                        <li class="page-item"><a href="#" class="page-link">1</a></li>
-                        <li class="page-item"><a href="#" class="page-link">2</a></li>
-                        <li class="page-item active"><a href="#" class="page-link">3</a></li>
-                        <li class="page-item"><a href="#" class="page-link">4</a></li>
-                        <li class="page-item"><a href="#" class="page-link">5</a></li>
-                        <li class="page-item"><a href="#" class="page-link"><i class="fa fa-angle-double-right"></i></a>
-                        </li>
-                    </ul>
-                </div>
+              </div>
+              <!-- /.card-body -->
             </div>
+            <!-- /.card -->
+          </div>
+          <!-- /.col -->
         </div>
-    </div>
-    
-</body>
-<?php
-    include_once('..\util\DBConnection.php');
-    $arr = array('tablename'=>'fish');
+        <!-- /.row -->
+      </div>
+      <!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+  </div>
+       
+    <?php
+ 
+    $arr = array('tablename'=>$table);
     include_once('..\dao\includeWithVar.php');
-    includeWithVariables('..\admin\editmodal.php',$arr)
+    includeWithVariables('..\admin\editmodal.php',$arr);
+    includeWithVariables('..\admin\deletemodal.php',$arr);
+ 
  ?>
+ 
+<!-- jQuery -->
+<script src="../admin/plugins/jquery/jquery.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src="../admin/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+   <!-- upload img -->
+   <script src="../admin/plugins/uploadimage/script.js"></script>
+<!-- DataTables -->
+<script src="../admin/plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="../admin/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+<script src="../admin/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+<script src="../admin/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+<!-- AdminLTE App -->
+<script src="../admin/dist/js/adminlte.min.js"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="../admin/dist/js/demo.js"></script>
+
+<!-- page script -->
 <script>
- $(document).ready(function() {
-        $('.check').click(function() {
-            var $this = $(this);
-
-            if ($this.is(':checked')) {
-                $.ajax({
-                    type: 'POST',
-                    url: '../dao/checkStatus.php',
-                    data: {
-                        checked: true,
-                        id: $(this).attr('id'),
-                        table: 'fish',
-                        valuecheck: 'fishstatus'
-                    },
-                    success: function(data) {
-                        result = data;
-                    }
-                });
-
-            } else {
-
-                $.ajax({
-                    type: 'POST',
-                    url: '../dao/checkStatus.php',
-                    data: {
-                        checked: false,
-                        id: $(this).attr('id'),
-                        table: 'fish',
-                        valuecheck: 'fishstatus'
-                    },
-                    success: function(data) {
-                        result = data;
-                    }
-                })
-            }
-        })
-    })
+  $(function () {
+    $('#myTable').DataTable({
+      "paging": true,
+      "lengthChange": true,
+      "searching": true,
+      "ordering": true,
+      "info": false,
+      "autoWidth": false,
+      "responsive": false,
+    });
+  });
 </script>
+
+
+</body>
+
 
 </html>

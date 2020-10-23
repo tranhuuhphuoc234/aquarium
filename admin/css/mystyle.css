@@ -4,7 +4,7 @@
 .center-item{
     text-align: center;
 }
-.button-size{
+.my .button-size{
     width: 100px;
 }
 .form-control:focus {
@@ -26,3 +26,4 @@ input::-webkit-inner-spin-button {
 input[type=number] {
   -moz-appearance: textfield;
 }
+  

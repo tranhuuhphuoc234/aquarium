@@ -37,6 +37,52 @@
 <script src="dist/js/pages/dashboard.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="dist/js/demo.js"></script>
+<!-- jQuery -->
+<script src="../admin/plugins/jquery/jquery.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src="../admin/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- DataTables -->
+<script src="../admin/plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="../admin/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+<script src="../admin/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+<script src="../admin/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+<!-- AdminLTE App -->
+<script src="../admin/dist/js/adminlte.min.js"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="../admin/dist/js/demo.js"></script>
+<!-- href with parameter-->
+<script>
+  function toTableFish(){	
+    var column_name = ["Fish Name","Fish Scientific Name","Type","Location","Size","Weight","Habitat","Diet","Gestationperiod","Achievableage","Status"];
+    var column_name_data = ['fishname','fishscientificname','typename','locationname','size','weight','habitat','diet','gestationperiod','achievableage','status','fishstatus'];
+    var stmt = "Select fishname,fishscientificname,typename,locationname,size,weight,habitat,diet,gestationperiod,achievableage,status,fishstatus from fish join type on type.typeid = fish.typeid join location on location.locationid = fish.locationid";
+    var table = "fish"
+	window.location.href = "../admin/table.php?column_name=" + column_name +"&column_name_data=" + column_name_data + "&stmt="  +stmt + "&table=" +table;
+}
+
+function toTableLocation(){	
+    var column_name = ["Location"];
+    var column_name_data = ['locationname,locationstatus'];
+    var stmt = "select locationname,locationstatus from location";
+    var table = "location"
+
+	window.location.href = "../admin/table.php?column_name=" + column_name +"&column_name_data=" + column_name_data + "&stmt="  +stmt+ "&table=" +table;
+}
+</script>
+<!-- page script -->
+<script>
+  $(function () {
+    $('#myTable').DataTable({
+      "paging": true,
+      "lengthChange": true,
+      "searching": true,
+      "ordering": true,
+      "info": false,
+      "autoWidth": false,
+      "responsive": true,
+    });
+  });
+</script>
 <!-- My JavaScript -->
 <script src="..\admin\js\myjs.js"></script>
 </body>

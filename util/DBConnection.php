@@ -19,7 +19,33 @@
         {
             echo "Error";
         }return null;
-    }   
+    }
+function getRowsCount($table)
+{
+    $conn = OpenConnection();
+    $query = "select count(*) from $table";
+    $excute = sqlsrv_query($conn,$query);
+    while($row = sqlsrv_fetch_array($excute, SQLSRV_FETCH_ASSOC))
+    {
+        return $row;
+    }    
+}
+function Delete($table,$columnname,$value)
+{
+    $conn = OpenConnection();
+    $query = "";
+    if(is_string($value))
+    {
+       $query = "DELETE FROM $table WHERE $columnname = '$value'";
+    }
+    else
+    {
+        $query = "DELETE FROM $table WHERE $columnname = $value";
+        
+    }
+   $excute = sqlsrv_query($conn, $query);
+   return $excute;
+}       
 function checkExist($table,$column,$value)
 {
     $conn = OpenConnection();
@@ -41,8 +67,20 @@ function checkExist($table,$column,$value)
        return false;
     }
 }
-function getTableValues($stmt,$page,$columnname)
+function getTableValues($table,$stmt,$page,$columnname)
 {
+    if ($page == 1)
+    {
+        $offset = 0;
+    }
+    else
+    {
+        $offset = 100 * ($page -1);
+
+    }
+    $stmt = $stmt." ORDER BY CURRENT_TIMESTAMP
+    OFFSET     $offset ROWS      
+    FETCH NEXT 100 ROWS ONLY";
     $conn = OpenConnection();
     $query = sqlsrv_query($conn,$stmt);
     $i = 0;
@@ -53,27 +91,98 @@ function getTableValues($stmt,$page,$columnname)
        
         foreach ($columnname as $key)
     {
-        
+        if ($key == 'fishstatus' || $key == 'locationstatus' || $key =='typestatus' ||$key =='ticketstatus')
+        {continue;}
+        else
+        {
         echo "<td>  $row[$key] </td>";
+        }
         
     }
-    $fishid = $row['fishid'];
+    switch($table)
+    {
+        case 'fish':
+            
+    $fishid = getId('fish',$row['fishscientificname']);
     if ($row['fishstatus'] == 1 )
         {
-            echo  "<td>  <input class=\"form-check-input ml-3 check\" type=\"checkbox\"value=\"option1\" id =\"$fishid\" name=\"checkbox\" aria-label=\"...\" checked style='position: inherit;'>
+            echo  "<td>  <input class=\"form-check-input ml-3 check fish\" type=\"checkbox\"value=\"option1\" id =\"$fishid\" name=\"checkbox\" aria-label=\"...\" checked style='position: inherit;'>
         </td>";
         }
         else
-        {echo  "<td>     <input class=\"form-check-input ml-3 check\" type=\"checkbox\"value=\"option1\" id =\"$fishid\" name=\"checkbox\" aria-label=\"...\" style='position: inherit';>
+        {echo  "<td>     <input class=\"form-check-input ml-3 check fish\" type=\"checkbox\"value=\"option1\" id =\"$fishid\" name=\"checkbox\" aria-label=\"...\" style='position: inherit';>
             </td>";}
     
         echo "<td>
-        <a href=\"#myModal\" class=\"edit fish\" value=\"$i\"  data-toggle=\"modal\"><i class=\"material-icons\" value=$\"fishid\"  data-toggle=\"tooltip\" title=\"Edit\">&#xE254;</i></a>
-        <a href=\"#deleteEmployeeModal\" class=\"delete fish\" data-val=$i  data-toggle=\"modal\"><i class=\"material-icons\" data-toggle=\"tooltip\" title=\"Delete\">&#xE872;</i></a>
+        <a href=\"#myModal\" class=\"edit fish\" value=\"$i\"  data-toggle=\"modal\"><i class=\"material-icons\"  data-toggle=\"tooltip\" title=\"Edit\">&#xE254;</i></a>
+        <a href=\"#deleteModal\" class=\"delete fish\" value=\"$i\"  data-toggle=\"modal\"><i class=\"material-icons\" data-toggle=\"tooltip\" title=\"Delete\">&#xE872;</i></a>
             </td>";
         echo "</tr>";
         $i++;
+        break;
+
+        case 'location':
+            $locationid = getId('location',$row['locationname']);
+   
+            if ($row['locationstatus'] == 1 )
+            {
+                echo  "<td>  <input class=\"form-check-input ml-3 check location\" type=\"checkbox\"value=\"option1\" id =\"$locationid\" name=\"checkbox\" aria-label=\"...\" checked style='position: inherit;'>
+            </td>";
+            }
+            else
+            {echo  "<td>     <input class=\"form-check-input ml-3 check location\" type=\"checkbox\"value=\"option1\" id =\"$locationid\" name=\"checkbox\" aria-label=\"...\" style='position: inherit';>
+                </td>";}
+        
+            echo "<td>
+            <a href=\"#deleteModal\" class=\"delete location\" value=\"$i\"  data-toggle=\"modal\"><i class=\"material-icons\" data-toggle=\"tooltip\" title=\"Delete\">&#xE872;</i></a>
+                </td>";
+            echo "</tr>";
+            $i++;
+        break;
+
+        case 'type':
+            $typeid = getId('type',$row['typename']);
+   
+            if ($row['typestatus'] == 1 )
+            {
+                echo  "<td>  <input class=\"form-check-input ml-3 check type\" type=\"checkbox\"value=\"option1\" id =\"$typeid\" name=\"checkbox\" aria-label=\"...\" checked style='position: inherit;'>
+            </td>";
+            }
+            else
+            {echo  "<td>     <input class=\"form-check-input ml-3 check type\" type=\"checkbox\"value=\"option1\" id =\"$typeid\" name=\"checkbox\" aria-label=\"...\" style='position: inherit';>
+                </td>";}
+        
+            echo "<td>
+            <a href=\"#deleteModal\" class=\"delete type\" value=\"$i\"  data-toggle=\"modal\"><i class=\"material-icons\" data-toggle=\"tooltip\" title=\"Delete\">&#xE872;</i></a>
+                </td>";
+            echo "</tr>";
+            $i++;
+        break;
+        
+        case 'ticket':
+
+            $ticketid = getId('fish',$row['ticketname']);
+            if ($row['ticketstatus'] == 1 )
+                {
+                    echo  "<td>  <input class=\"form-check-input ml-3 check fish\" type=\"checkbox\"value=\"option1\" id =\"$ticketid\" name=\"checkbox\" aria-label=\"...\" checked style='position: inherit;'>
+                </td>";
+                }
+                else
+                {echo  "<td>     <input class=\"form-check-input ml-3 check fish\" type=\"checkbox\"value=\"option1\" id =\"$ticketid\" name=\"checkbox\" aria-label=\"...\" style='position: inherit';>
+                    </td>";}
+            
+                echo "<td>
+                <a href=\"#myModal\" class=\"edit ticket\" value=\"$i\"  data-toggle=\"modal\"><i class=\"material-icons\"  data-toggle=\"tooltip\" title=\"Edit\">&#xE254;</i></a>
+                <a href=\"#deleteModal\" class=\"delete ticket\" value=\"$i\"  data-toggle=\"modal\"><i class=\"material-icons\" data-toggle=\"tooltip\" title=\"Delete\">&#xE872;</i></a>
+                    </td>";
+                echo "</tr>";
+                $i++;
+
+        break;
     }
+    
+        
+}
 
     
 }
@@ -94,7 +203,13 @@ function getId($table,$val)
 {
     $conn = OpenConnection();
     $columnname = $table."id";
+    if($table == "fish")
+    {
+    $valcolumnname = $table."scientificname";
+    }
+else{
     $valcolumnname = $table."name";
+}
     $stmt = "SELECT $columnname FROM $table WHERE $valcolumnname = '$val'";
     $query = sqlsrv_query($conn, $stmt);
     $row = sqlsrv_fetch_array($query, SQLSRV_FETCH_ASSOC);
@@ -102,6 +217,7 @@ function getId($table,$val)
         return $row[$table."id"];
     
 }
+
 function Create($item ){
     try{
         $conn = OpenConnection();
@@ -139,6 +255,56 @@ function Create($item ){
         }
         $query = substr($query,0, strlen($query) -1);
         $query .= ")";
+        $check = sqlsrv_query($conn,$query);
+        if ($check == 0)
+        {
+            return false;
+        }
+        else{
+           return true;
+        }
+
+    }
+    catch (Exception $e)
+    {
+        echo("Error");
+    }
+} 
+
+function Update($item,$id,$cond ){
+    try{
+        $conn = OpenConnection();
+        $tableName = get_class($item); // get class name
+        $query = "UPDATE $tableName SET ";
+        $fields  = get_object_vars($item);
+        $class = new ReflectionClass($tableName);
+        $properties = $class->getProperties(); // get class properties
+        foreach ($properties as $property) {
+            // skip inherited properties
+            if ($property->getDeclaringClass()->getName() !== $class->getName()) {
+              continue;
+            }
+    
+            $classProperties[] = $property->getName();
+          }
+        
+        foreach(array_combine($classProperties,$fields ) as $columnitem=>$fielditem)
+        {
+       
+            $query .= $columnitem ."=";
+            if (is_string($fielditem))
+            {
+               
+                $query .= "'$fielditem'".",";
+            }
+            else
+            {
+                $query .= $fielditem.",";
+            }
+
+        }
+        $query = substr($query,0, strlen($query) -1);
+            $query .= " WHERE $cond = $id";   
         $check = sqlsrv_query($conn,$query);
         if ($check == 0)
         {

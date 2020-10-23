@@ -14,12 +14,14 @@ $stuatusExist = false;
            
         $var = $_GET["ticket"];
         $price = $_GET["price"];
+        $detail = $_GET['ticket-detail'];
         $number = substr($price, 1); 
         if(!checkExist("ticket","ticketname",$var))
         {
         $ticket = new ticket();
         $ticket -> setticketname($var);
         $ticket -> setticketprice($number);
+        $ticket -> setticketdetail($detail);
         $ticket -> setticketstatus(1);
         if(Create($ticket))
         {
@@ -49,7 +51,9 @@ $stuatusExist = false;
                             placeholder="Enter ticket name" name="ticket" required>
                          <label for="currency-field">Price</label>
                          <input class="form-control" id="currency-field" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" value="" data-type="currency"  aria-describedby="" placeholder="Enter price" name="price" required>   
-                    </div>
+                        <label for="ticket-detail">Detail</label>
+                        <textarea name="ticket-detail" id="ticket-detail" cols="30" rows="10" class="form-control" value="" aria-describedby="" placeholder="Enter ticket's detail" require></textarea>                    
+                        </div>
                     <div class="center-item"><button name="submit" value="submit" type="submit"
                             class="btn-sm btn-dark button-size">Add</button></div>
 

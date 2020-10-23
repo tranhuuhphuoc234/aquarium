@@ -8,23 +8,23 @@
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="..\admin\plugins/fontawesome-free/css/all.min.css">
     <!-- Ionicons -->
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <!-- Tempusdominus Bbootstrap 4 -->
-    <link rel="stylesheet" href="plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+    <link rel="stylesheet" href="..\admin\plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
     <!-- iCheck -->
-    <link rel="stylesheet" href="plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+    <link rel="stylesheet" href="..\admin\plugins/icheck-bootstrap/icheck-bootstrap.min.css">
     <!-- JQVMap -->
-    <link rel="stylesheet" href="plugins/jqvmap/jqvmap.min.css">
+    <link rel="stylesheet" href="..\admin\plugins/jqvmap/jqvmap.min.css">
     <!-- Theme style -->
-    <link rel="stylesheet" href="dist/css/adminlte.min.css">
+    <link rel="stylesheet" href="..\admin\dist/css/adminlte.min.css">
     <!-- overlayScrollbars -->
-    <link rel="stylesheet" href="plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+    <link rel="stylesheet" href="..\admin\plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
     <!-- Daterange picker -->
-    <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css">
+    <link rel="stylesheet" href="..\admin\plugins/daterangepicker/daterangepicker.css">
     <!-- summernote -->
-    <link rel="stylesheet" href="plugins/summernote/summernote-bs4.css">
+    <link rel="stylesheet" href="..\admin\plugins/summernote/summernote-bs4.css">
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
     <!-- ckeditor -->
@@ -34,11 +34,14 @@
     <!-- JquerrUI -->
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <!-- Jquery css -->
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <!-- My style-->
     <link rel="stylesheet" href="..\admin\css\mystyle.css">
-
-
+    <link rel="stylesheet" href="..\admin\plugins\uploadimage\style.css">
+ 
+     <!-- DataTables -->
+  <link rel="stylesheet" href="..\admin\plugins\datatables-bs4\css\dataTables.bootstrap4.min.css">
+  <link rel="stylesheet" href="..\admin\plugins\datatables-responsive\css\responsive.bootstrap4.min.css">
 
 </head>
 
@@ -195,23 +198,30 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="table.php" class="nav-link">
+                                    <a href="table.php?column_name=Fish%20Name,Fish%20Scientific%20Name,Type,Location,Size,Weight,Habitat,Diet,Gestationperiod,Achievableage,Status&column_name_data=fishname,fishscientificname,typename,locationname,size,weight,habitat,diet,gestationperiod,achievableage,status,fishstatus&stmt=Select%20fishname,fishscientificname,typename,locationname,size,weight,habitat,diet,gestationperiod,achievableage,status,fishstatus%20from%20fish%20join%20type%20on%20type.typeid%20=%20fish.typeid%20join%20location%20on%20location.locationid%20=%20fish.locationid&table=fish" class="nav-link"> <!--bad code -->
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Fish</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="pages/tables/data.html" class="nav-link">
+                                    <a href="table.php?column_name=Location&column_name_data=locationname,locationstatus&stmt=select%20locationname,locationstatus%20from%20location&table=location" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>DataTables</p>
+                                        <p>Location</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="pages/tables/jsgrid.html" class="nav-link">
+                                    <a href="table.php?column_name=Type&column_name_data=typename,typestatus&stmt=select%20typename,typestatus%20from%20type&table=type" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>jsGrid</p>
+                                        <p>Type</p>
                                     </a>
                                 </li>
+                                <li class="nav-item">
+                                    <a href="table.php?column_name=Location&column_name_data=locationname,locationstatus&stmt=select%20locationname,locationstatus%20from%20location&table=location" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Ticket</p>
+                                    </a>
+                                </li>
+                               
                             </ul>
                         </li>
                         <li class="nav-header">Ultites</li>
@@ -321,3 +331,4 @@
             </div>
             <!-- /.sidebar -->
         </aside>
+        
