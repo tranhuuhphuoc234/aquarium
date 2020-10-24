@@ -118,6 +118,41 @@ $(document).ready(function () {
     });
 });
 
+$(document).ready(function () {
+    $('[data-toggle="tooltip"]').tooltip();
+    $('.edit.ticket').click(function () {
+        // get data row table
+        var id = $(this).attr('value');
+        var ticket_name = $(this).closest('tr').find('td:nth-child(2)').text();
+        var price = $(this).closest('tr').find('td:nth-child(3)').text();   
+
+        // set value for modal
+        $('#ticket_name').val(ticket_name.trim());
+        $('#currency-field').val(price.trim());
+     
+             
+    });
+});
+
+
+$(document).ready(function () {
+    $('[data-toggle="tooltip"]').tooltip();
+    $('.edit.event').click(function () {
+        // get data row table
+        var id = $(this).attr('value');
+        var event_name = $(this).closest('tr').find('td:nth-child(2)').text();
+        var event_detail = $(this).closest('tr').find('td:nth-child(3)').text();
+        var event_time =   $(this).closest('tr').find('td:nth-child(4)').text(); 
+
+        // set value for modal
+        $('#event_name').val(event_name.trim());
+        $('#event_detail').val(event_detail.trim());
+        $('#event_time').val(event_time.trim());
+     
+             
+    });
+});
+
 
 $(document).ready(function (){
     var location_name= "";
@@ -132,7 +167,7 @@ $(document).ready(function (){
         $.ajax({
             type: 'POST',
             url: '../dao/deleteRecord.php',
-            data: { value: location_name, table: "location", columnname: "locationname" },
+            data: { value: location_name.trim(), table: "location", columnname: "locationname" },
             dataType: 'json'
         })
             .done(function (data) {       
@@ -141,10 +176,58 @@ $(document).ready(function (){
                     id = parseInt(id, 10);
                     document.getElementById("myTable").deleteRow(id + 1);
                     $('#deleteModal').modal('hide');
+                    alert('xoa roi')
                    }
                    else
                    {
-                      alert("failed")
+                    $('#deleteModal').modal('hide');
+                    alert('khong xoa dc nho doi lai modal')
+                   }
+            })
+            .fail(function () {
+
+                // just in case posting your form failed
+                alert("Posting failed.");
+
+            });
+
+        // to prevent refreshing the whole page page
+        return false;
+
+
+    });
+
+
+});
+
+$(document).ready(function (){
+    var event_name= "";
+    $('.delete.event').click(function () {
+
+        id = $(this).attr('value');
+        event_name = $(this).closest('tr').find('td:nth-child(2)').text();
+        
+        
+    });
+    $('#deleteevent').click(function () {
+        $.ajax({
+            type: 'POST',
+            url: '../dao/deleteRecord.php',
+            data: { value: event_name.trim(), table: "event", columnname: "eventname" },
+            dataType: 'json'
+        })
+            .done(function (data) {       
+                   if(data == true)
+                   {
+                    id = parseInt(id, 10);
+                    document.getElementById("myTable").deleteRow(id + 1);
+                    $('#deleteModal').modal('hide');
+                    alert('xoa roi')
+                   }
+                   else
+                   {
+                    $('#deleteModal').modal('hide');
+                    alert('khong xoa dc nho doi lai modal')
                    }
             })
             .fail(function () {
@@ -165,18 +248,18 @@ $(document).ready(function (){
 
 $(document).ready(function (){
     var ticket_name= "";
-    $('.delete.location').click(function () {
+    $('.delete.ticket').click(function () {
 
         id = $(this).attr('value');
         ticket_name = $(this).closest('tr').find('td:nth-child(2)').text();
         
         
     });
-    $('#deletelocation').click(function () {
+    $('#deleteticket').click(function () {
         $.ajax({
             type: 'POST',
             url: '../dao/deleteRecord.php',
-            data: { value: ticket_name, table: "ticket", columnname: "ticketname" },
+            data: { value: ticket_name.trim(), table: "ticket", columnname: "ticketname" },
             dataType: 'json'
         })
             .done(function (data) {       
@@ -185,10 +268,13 @@ $(document).ready(function (){
                     id = parseInt(id, 10);
                     document.getElementById("myTable").deleteRow(id + 1);
                     $('#deleteModal').modal('hide');
+                    alert('xoa roi')
+
                    }
                    else
                    {
-                      alert("failed")
+                    $('#deleteModal').modal('hide');
+                    alert('khong xoa dc nho doi lai modal')
                    }
             })
             .fail(function () {
@@ -220,7 +306,7 @@ $(document).ready(function (){
         $.ajax({
             type: 'POST',
             url: '../dao/deleteRecord.php',
-            data: { value: type_name, table: "type", columnname: "typename" },
+            data: { value: type_name.trim(), table: "type", columnname: "typename" },
             dataType: 'json'
         })
             .done(function (data) {       
@@ -229,10 +315,13 @@ $(document).ready(function (){
                     id = parseInt(id, 10);
                     document.getElementById("myTable").deleteRow(id + 1);
                     $('#deleteModal').modal('hide');
+                                        alert('xoa roi')
+
                    }
                    else
                    {
-                      alert("failed")
+                    $('#deleteModal').modal('hide');
+                    alert('khong xoa dc nho doi lai modal')
                    }
             })
             .fail(function () {
@@ -388,7 +477,7 @@ $(document).ready(function () {
                     checked: true,
                     id: $(this).attr('id'),
                     table: 'type',
-                    valuecheck: 'type'
+                    valuecheck: 'typestatus'
                 },
                 success: function (data) {
                     result = data;
@@ -443,6 +532,44 @@ $(document).ready(function () {
                     id: $(this).attr('id'),
                     table: 'ticket',
                     valuecheck: 'ticketstatus'
+                },
+                success: function (data) {
+                    result = data;
+                }
+            })
+        }
+    })
+})
+
+$(document).ready(function () {
+    $('.check.event').click(function () {
+        var $this = $(this);
+
+        if ($this.is(':checked')) {
+            $.ajax({
+                type: 'POST',
+                url: '../dao/checkStatus.php',
+                data: {
+                    checked: true,
+                    id: $(this).attr('id'),
+                    table: 'event',
+                    valuecheck: 'eventstatus'
+                },
+                success: function (data) {
+                    result = data;
+                }
+            });
+
+        } else {
+
+            $.ajax({
+                type: 'POST',
+                url: '../dao/checkStatus.php',
+                data: {
+                    checked: false,
+                    id: $(this).attr('id'),
+                    table: 'event',
+                    valuecheck: 'eventstatus'
                 },
                 success: function (data) {
                     result = data;

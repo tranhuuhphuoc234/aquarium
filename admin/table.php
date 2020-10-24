@@ -86,7 +86,9 @@
     </section>
     <!-- /.content -->
   </div>
-       
+  <div id="typefalse">
+    
+  </div>     
     <?php
  
     $arr = array('tablename'=>$table);
@@ -122,7 +124,7 @@
       "ordering": true,
       "info": false,
       "autoWidth": false,
-      "responsive": false,
+      "responsive": true,
     });
   });
 </script>

@@ -29,19 +29,21 @@
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
     <!-- ckeditor -->
     <script src="..\admin\plugins\ckeditor\ckeditor.js"></script>
-    <!-- Jquery -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <!-- JquerrUI -->
+     <!-- Jquerry -->
+     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <!-- JquerryUI -->
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <!-- Jquery css -->
-    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <!-- Jquerry css -->
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+
     <!-- My style-->
     <link rel="stylesheet" href="..\admin\css\mystyle.css">
     <link rel="stylesheet" href="..\admin\plugins\uploadimage\style.css">
- 
-     <!-- DataTables -->
-  <link rel="stylesheet" href="..\admin\plugins\datatables-bs4\css\dataTables.bootstrap4.min.css">
-  <link rel="stylesheet" href="..\admin\plugins\datatables-responsive\css\responsive.bootstrap4.min.css">
+
+    <!-- DataTables -->
+    <link rel="stylesheet" href="..\admin\plugins\datatables-bs4\css\dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="..\admin\plugins\datatables-responsive\css\responsive.bootstrap4.min.css">
 
 </head>
 
@@ -157,6 +159,12 @@
                                         <p>Ticket</p>
                                     </a>
                                 </li>
+                                <li class="nav-item">
+                                    <a href="addevent.php" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Event</p>
+                                    </a>
+                                </li>
                             </ul>
                         </li>
                         <li class="nav-item has-treeview">
@@ -198,30 +206,42 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="table.php?column_name=Fish%20Name,Fish%20Scientific%20Name,Type,Location,Size,Weight,Habitat,Diet,Gestationperiod,Achievableage,Status&column_name_data=fishname,fishscientificname,typename,locationname,size,weight,habitat,diet,gestationperiod,achievableage,status,fishstatus&stmt=Select%20fishname,fishscientificname,typename,locationname,size,weight,habitat,diet,gestationperiod,achievableage,status,fishstatus%20from%20fish%20join%20type%20on%20type.typeid%20=%20fish.typeid%20join%20location%20on%20location.locationid%20=%20fish.locationid&table=fish" class="nav-link"> <!--bad code -->
+                                    <a href="table.php?column_name=Fish%20Name,Fish%20Scientific%20Name,Type,Location,Size,Weight,Habitat,Diet,Gestationperiod,Achievableage,Status&column_name_data=fishname,fishscientificname,typename,locationname,size,weight,habitat,diet,gestationperiod,achievableage,status,fishstatus&stmt=Select%20fishname,fishscientificname,typename,locationname,size,weight,habitat,diet,gestationperiod,achievableage,status,fishstatus%20from%20fish%20join%20type%20on%20type.typeid%20=%20fish.typeid%20join%20location%20on%20location.locationid%20=%20fish.locationid&table=fish"
+                                        class="nav-link">
+                                        <!--bad code -->
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Fish</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="table.php?column_name=Location&column_name_data=locationname,locationstatus&stmt=select%20locationname,locationstatus%20from%20location&table=location" class="nav-link">
+                                    <a href="table.php?column_name=Location&column_name_data=locationname,locationstatus&stmt=select%20locationname,locationstatus%20from%20location&table=location"
+                                        class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Location</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="table.php?column_name=Type&column_name_data=typename,typestatus&stmt=select%20typename,typestatus%20from%20type&table=type" class="nav-link">
+                                    <a href="table.php?column_name=Type&column_name_data=typename,typestatus&stmt=select%20typename,typestatus%20from%20type&table=type"
+                                        class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Type</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="table.php?column_name=Location&column_name_data=locationname,locationstatus&stmt=select%20locationname,locationstatus%20from%20location&table=location" class="nav-link">
+                                    <a href="table.php?column_name=Ticket,Price&column_name_data=ticketname,ticketprice,ticketstatus&stmt=select%20ticketname,ticketprice,ticketstatus%20from%20ticket&table=ticket"
+                                        class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Ticket</p>
                                     </a>
                                 </li>
-                               
+                                <li class="nav-item">
+                                    <a href="table.php?column_name=Event,Event%20Detail,Time&column_name_data=eventname,eventdetail,eventtime,eventstatus&stmt=select%20eventname,eventdetail,eventtime,eventstatus%20from%20event&table=event"
+                                        class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Event</p>
+                                    </a>
+                                </li>
+
                             </ul>
                         </li>
                         <li class="nav-header">Ultites</li>
@@ -331,4 +351,3 @@
             </div>
             <!-- /.sidebar -->
         </aside>
-        

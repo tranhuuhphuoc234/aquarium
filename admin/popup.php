@@ -1,5 +1,5 @@
 <?php
-include_once("header.php");
+include_once("../admin/header.php");
   echo "  <script>
   $( function() {
     $( \"#dialog-message\" ).dialog({
@@ -20,7 +20,7 @@ include_once("header.php");
     $content
   </p>
 </div>";
-include_once("footer.php")
+include_once("../admin/footer.php")
  ?>
  
  

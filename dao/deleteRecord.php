@@ -2,7 +2,7 @@
     include_once('..\util\DBConnection.php');
     $columnname = $_POST['columnname'];
     $table = $_POST['table'];
-    $value = str_replace(' ', '', $_POST['value']);
+    $value = $_POST['value'];
     if($table == "images")
     {
       $fishscientificname = $value;

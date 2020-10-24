@@ -195,6 +195,266 @@ $(document).ready(function() {
 break;
 
 case 'ticket':
+
+    echo "<div id=\"myModal\" class=\"modal fade\" role=\"dialog\">\n";
+    echo "        <div class=\"modal-dialog modal-lg\">\n";
+    echo "\n";
+    echo "           \n";
+    echo "            <div class=\"modal-content\">\n";
+    echo "                <div class=\"modal-body\">\n";
+    echo "                    <div class=\"container col-md-12\">\n";
+    echo "                        <div class=\"row\">\n";
+    echo "                            <div class=\"col-md-2\"></div>\n";
+    echo "                            <div class=\"col-md-8\">\n";
+    echo "                                <form enctype=\"multipart/form-data\" action=\"\" method=\"post\">\n";
+    echo "                                    <div style=\"height:30px\"></div>\n";
+    echo "                                    <div class=\"row\">\n";
+    echo "                                        <div class=\"form-group col\">\n";
+    echo "                                            <label for=\"ticketname\">Ticket's Name</label>\n";
+    echo "                                            <input type=\"ticketname\" class=\"form-control\" id=\"ticket_name\" aria-describedby=\"\"\n";
+    echo "                                                placeholder=\"Enter ticket's name\" name=\"ticketname\" disabled>\n";
+    echo "                                        </div>\n";                   
+    echo "                                    </div>\n";
+    echo "                                    <div class=\"row\">\n";
+    echo "                                        <div class=\"form-group col\">\n";
+    echo "                                            <label for=\"Price\">Price</label>\n";
+    echo "                                            <input class=\"form-control\" id=\"currency-field\" pattern='^/$\d{1,3}(,\d{3})*(\.\d+)?$' value=\"\" data-type=\"currency\"  aria-describedby=\"\" placeholder=\"Enter price\" name=\"price\" required>"  ;                              
+    echo "                                        </div>\n" ;                                    
+    echo "</div>\n";
+    echo "                                    <div class=\"center-item\"><button name=\"submit\" value=\"submit\" id = \"submit\"type=\"submit\"\n";
+    echo "                                            class=\"btn-sm btn-dark button-size\">Save</button></div>\n";
+    echo "\n";
+    echo "                                </form>\n";
+    echo "\n";
+    echo "                            </div>\n";
+    echo "                            <div class=\"col-md-2\"></div>\n";
+    echo "\n";
+    echo "\n";
+    echo "                        </div>\n";
+    echo "                    </div>\n";
+    echo "                </div>\n";
+    echo "                <div class=\"modal-footer\">\n";
+    echo "                    <button type=\"button\" class=\"btn btn-default\" data-dismiss=\"modal\">Close</button>\n";
+    echo "                </div>\n";
+    echo "            </div>\n";
+    echo "\n";
+    echo "        </div>\n";
+    echo "    </div>\n";
+    echo "<script>
+    
+    
+$(\"input[data-type='currency']\").on({
+    keyup: function() {
+      formatCurrency($(this));
+    },
+    blur: function() { 
+      formatCurrency($(this), \"blur\");
+    }
+  });
+  function formatNumber(n) {
+    return n.replace(/\D/g, \"\").replace(/\B(?=(\d{3})+(?!\d))/g, \",\")
+    }
+    
+    
+    function formatCurrency(input, blur) {
+  
+    var input_val = input.val();
+    
+   
+    if (input_val === \"\") { return; }
+    
+  
+    var original_len = input_val.length;
+    
+  
+    var caret_pos = input.prop(\"selectionStart\");
+      
+  
+    if (input_val.indexOf(\".\") >= 0) {
+    
+  
+      var decimal_pos = input_val.indexOf(\".\");
+    
+    
+      var left_side = input_val.substring(0, decimal_pos);
+      var right_side = input_val.substring(decimal_pos);
+    
+  
+      left_side = formatNumber(left_side);
+    
+      right_side = formatNumber(right_side);
+      
+  
+      if (blur === \"blur\") {
+        right_side += \"00\";
+      }
+      
+  
+      right_side = right_side.substring(0, 2);
+    
+  
+      input_val = \"$\" + left_side + \".\" + right_side;
+    
+    } else {
+    
+      input_val = formatNumber(input_val);
+      input_val = \"$\" + input_val;
+      
+  
+      if (blur === \"blur\") {
+        input_val += \".00\";
+      }
+    }
+    
+  
+    input.val(input_val);
+    
+  
+    var updated_len = input_val.length;
+    caret_pos = updated_len - original_len + caret_pos;
+    input[0].setSelectionRange(caret_pos, caret_pos);
+    }
+  
+
+    </script>";
+
+    echo "
+            <script>
+            $(document).ready(function () {
+
+                $('#submit').click(function () {
+              
+              
+                  var ticketname = $('#ticket_name').val();
+                  var price = $('#currency-field').val();
+              
+                  $.ajax({
+                    type: 'POST',
+                    url: '../admin/updateticket.php',
+                    data: { ticketname: ticketname.trim(), price: price},
+                    dataType: 'json'
+                  })
+                    .done(function (data) {
+                        $('#myModal').modal('hide');
+
+                    })
+                    .fail(function () {
+              
+                      
+              
+                    });
+                    location.reload();
+
+                    $('#myModal').modal('hide');
+                  return false;
+              
+              
+                });
+              
+              });
+</script>
+            ";
 break;
+
+case 'event':
+
+    echo "<div id=\"myModal\" class=\"modal fade\" role=\"dialog\">\n";
+    echo "        <div class=\"modal-dialog modal-lg\">\n";
+    echo "\n";
+    echo "           \n";
+    echo "            <div class=\"modal-content\">\n";
+    echo "                <div class=\"modal-body\">\n";
+    echo "                    <div class=\"container col-md-12\">\n";
+    echo "                        <div class=\"row\">\n";
+    echo "                            <div class=\"col-md-2\"></div>\n";
+    echo "                            <div class=\"col-md-8\">\n";
+    echo '                              <form action="" method="get">
+                   <div class="form-group">
+                        <label for="event">Event</label>
+                        <input type="Event" class="form-control" id="event_name" aria-describedby=""
+                            placeholder="Enter event name" name="event_name" required>
+                    </div>
+                    <div class="form-group ">
+                        <label for="event">Event Detail</label>
+                        <textarea type="eventdetail" class="form-control" id="event_detail" aria-describedby=""
+                            placeholder="Enter event detail" name="event_detail" required></textarea>
+                    </div>
+                    <div class="form-group ">
+                        <label for="time">Time</label>
+                        <select class="custom-select" id = "event_time" name="event_time">
+                            <option >8:00</option>
+                            <option >10:00</option>
+                            <option >12:00</option>
+                            <option >14:00</option>
+                            <option >16:00</option>
+                        </select>
+                    </div>
+                    <div class="center-item"><button name="submit" value="submit" type="submit" id="submit"
+                            class="btn-sm btn-dark button-size">Save</button></div>
+
+          
+
+        
+
+            </form>';
+    echo "\n";
+    echo "                            </div>\n";
+    echo "                            <div class=\"col-md-2\"></div>\n";
+    echo "\n";
+    echo "\n";
+    echo "                        </div>\n";
+    echo "                    </div>\n";
+    echo "                </div>\n";
+    echo "                <div class=\"modal-footer\">\n";
+    echo "                    <button type=\"button\" class=\"btn btn-default\" data-dismiss=\"modal\">Close</button>\n";
+    echo "                </div>\n";
+    echo "            </div>\n";
+    echo "\n";
+    echo "        </div>\n";
+  
+    echo" <script>
+    
+    $(document).ready(function () {
+
+        $('#submit').click(function () {
+      
+      
+          var eventname = $('#event_name').val();
+          var eventdetail = $('#event_detail').val();
+          var eventtime = $('#event_time').val();
+      
+          $.ajax({
+            type: 'POST',
+            url: '../admin/updateevent.php',
+            data: { eventname: eventname.trim(), eventdetail: eventdetail.trim(), eventtime: eventtime.trim()},
+            dataType: 'json'
+          })
+            .done(function (data) {
+                $('#myModal').modal('hide');
+
+            })
+            .fail(function () {
+      
+              
+      
+            });
+            location.reload();
+
+            $('#myModal').modal('hide');
+          return false;
+      
+      
+        });
+      
+      });
+
+    </script>";
+break;
+
 }
 ?>
+
+
+
+
+

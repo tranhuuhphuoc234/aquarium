@@ -1,12 +1,12 @@
 <?php
     include_once("header.php");
     include_once("..\util\DBConnection.php");
-    include_once("..\dao\location.php")
+    include_once("..\dao\location.php");
+    include_once("../dao\includeWithVar.php");
+
  ?>
 <?php
-$statusTrue = false;
-$statusFalse = false;
-$stuatusExist = false; 
+
      if(isset($_GET["submit"]))
      {
          if(isset($_GET["location"]))
@@ -20,15 +20,18 @@ $stuatusExist = false;
         $location -> setlocationstatus(1);
         if(Create($location))
         {
-            $statusTrue = true;
+            includeWithVariables("popup.php",array('title'=>'Sucessfully Added','color'=>'#28a745','content' =>$var.' has been added to database'));
+
         }
         else
         {
-            $statusFalse = true;
+            includeWithVariables("popup.php",array('title'=>'Failed to Add ','color'=>'#dc3545','content' =>'Please try again later!'));
+
         }
     }
     else{
-        $stuatusExist = true; 
+        includeWithVariables("popup.php",array('title'=>'Failed to Add ','color'=>'#dc3545','content' =>'Location name has already existed'));
+
     }
     }
     }
@@ -49,21 +52,7 @@ $stuatusExist = false;
                             class="btn-sm btn-dark button-size">Add</button></div>
 
                 </form>
-                <?php
-                    if($statusTrue == true)
-                    {
-                       echo "<p class=\"text-success center-item\">Succesfully Added</p>";
-
-                    }
-                    if($statusFalse == true)
-                    {
-                        echo" <p class=\"text-danger center-item\">Failed To Add</p>";
-                    }
-                    if($stuatusExist == true)
-                    {
-                        echo" <p class=\"text-danger center-item\">Location name already exists </p>";
-                    }
-                 ?>
+               
 
             </div>
             <div class="col-4"></div>

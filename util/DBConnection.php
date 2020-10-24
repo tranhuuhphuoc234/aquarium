@@ -91,7 +91,7 @@ function getTableValues($table,$stmt,$page,$columnname)
        
         foreach ($columnname as $key)
     {
-        if ($key == 'fishstatus' || $key == 'locationstatus' || $key =='typestatus' ||$key =='ticketstatus')
+        if ($key == 'fishstatus' || $key == 'locationstatus' || $key =='typestatus' ||$key =='ticketstatus' || $key == 'eventstatus')
         {continue;}
         else
         {
@@ -161,19 +161,40 @@ function getTableValues($table,$stmt,$page,$columnname)
         
         case 'ticket':
 
-            $ticketid = getId('fish',$row['ticketname']);
+            $ticketid = getId('ticket',$row['ticketname']);
             if ($row['ticketstatus'] == 1 )
                 {
-                    echo  "<td>  <input class=\"form-check-input ml-3 check fish\" type=\"checkbox\"value=\"option1\" id =\"$ticketid\" name=\"checkbox\" aria-label=\"...\" checked style='position: inherit;'>
+                    echo  "<td>  <input class=\"form-check-input ml-3 check ticket\" type=\"checkbox\"value=\"option1\" id =\"$ticketid\" name=\"checkbox\" aria-label=\"...\" checked style='position: inherit;'>
                 </td>";
                 }
                 else
-                {echo  "<td>     <input class=\"form-check-input ml-3 check fish\" type=\"checkbox\"value=\"option1\" id =\"$ticketid\" name=\"checkbox\" aria-label=\"...\" style='position: inherit';>
+                {echo  "<td>     <input class=\"form-check-input ml-3 check ticket\" type=\"checkbox\"value=\"option1\" id =\"$ticketid\" name=\"checkbox\" aria-label=\"...\" style='position: inherit';>
                     </td>";}
             
                 echo "<td>
                 <a href=\"#myModal\" class=\"edit ticket\" value=\"$i\"  data-toggle=\"modal\"><i class=\"material-icons\"  data-toggle=\"tooltip\" title=\"Edit\">&#xE254;</i></a>
                 <a href=\"#deleteModal\" class=\"delete ticket\" value=\"$i\"  data-toggle=\"modal\"><i class=\"material-icons\" data-toggle=\"tooltip\" title=\"Delete\">&#xE872;</i></a>
+                    </td>";
+                echo "</tr>";
+                $i++;
+
+        break;
+
+        case 'event':
+
+            $eventid = getId('event',$row['eventname']);
+            if ($row['eventstatus'] == 1 )
+                {
+                    echo  "<td>  <input class=\"form-check-input ml-3 check event\" type=\"checkbox\"value=\"option1\" id =\"$eventid\" name=\"checkbox\" aria-label=\"...\" checked style='position: inherit;'>
+            </td>";
+            }
+            else
+            {echo  "<td>     <input class=\"form-check-input ml-3 check event\" type=\"checkbox\"value=\"option1\" id =\"$eventid\" name=\"checkbox\" aria-label=\"...\" style='position: inherit';>
+                </td>";}
+            
+                echo "<td>
+                <a href=\"#myModal\" class=\"edit event\" value=\"$i\"  data-toggle=\"modal\"><i class=\"material-icons\"  data-toggle=\"tooltip\" title=\"Edit\">&#xE254;</i></a>
+                <a href=\"#deleteModal\" class=\"delete event\" value=\"$i\"  data-toggle=\"modal\"><i class=\"material-icons\" data-toggle=\"tooltip\" title=\"Delete\">&#xE872;</i></a>
                     </td>";
                 echo "</tr>";
                 $i++;

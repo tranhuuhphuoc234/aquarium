@@ -1,36 +1,28 @@
 <?php
-$statusTrue = false;
-$statusFalse = false;
-$stuatusExist = false; 
-     if(isset($_GET["submit"]))
-     {
-         if(isset($_GET["ticket"]))
-        {
-           
-        $var = $_GET["ticket"];
-        $price = $_GET["price"];
-        $detail = $_GET['ticket-detail'];
-        $number = substr($price, 1); 
-        if(!checkExist("ticket","ticketname",$var))
-        {
+include_once("..\util\DBConnection.php");
+include_once("../dao\includeWithVar.php");
+include_once("../dao/ticket.php");
+$var = $_POST['ticketname'];
+$price = $_POST["price"];   
+if(!is_numeric($price))
+{
+$price = substr($price, 1);
+}
         $ticket = new ticket();
         $ticket -> setticketname($var);
-        $ticket -> setticketprice($number);
-        $ticket -> setticketdetail($detail);
+        $ticket -> setticketprice($price);
         $ticket -> setticketstatus(1);
         $ticketid = getId('ticket',$var);
         if(Update($ticket,$ticketid,'ticketid'))
         {
-            $statusTrue = true;
+            includeWithVariables("popup.php",array('title'=>'Sucessfully Added','color'=>'#28a745','content' =>$var.' has been updated'));
+
         }
         else
         {
-            $statusFalse = true;
+         
         }
-    }
-    else{
-        $stuatusExist = true; 
-    }
-    }
-    }
+   
+   
+   
 ?>
