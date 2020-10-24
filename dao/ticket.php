@@ -3,11 +3,9 @@
         public $ticketname;
         public $ticketprice;
         public $ticketstatus;
+
         public function __construct()
         {
-         $this ->ticketname = "";
-         $this ->ticketprice = 0 ;
-         $this ->ticketstatus = "";
         }
         public function setticketname ($ticketname){
            $this->ticketname = $ticketname;
@@ -27,5 +25,6 @@
         public function getticketprice(){
            return $this ->ticketprice;
         }
+      
     }
  ?>

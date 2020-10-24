@@ -1,12 +1,10 @@
 <?php
     include_once("header.php");
     include_once("..\util\DBConnection.php");
+    include_once("../dao\includeWithVar.php");
     include_once("../dao/ticket.php")
  ?>
 <?php
-$statusTrue = false;
-$statusFalse = false;
-$stuatusExist = false; 
      if(isset($_GET["submit"]))
      {
          if(isset($_GET["ticket"]))
@@ -14,24 +12,32 @@ $stuatusExist = false;
            
         $var = $_GET["ticket"];
         $price = $_GET["price"];
-        $number = substr($price, 1); 
+        if(!is_numeric($price))
+{
+$price = substr($price, 1);
+}
+
         if(!checkExist("ticket","ticketname",$var))
         {
         $ticket = new ticket();
         $ticket -> setticketname($var);
-        $ticket -> setticketprice($number);
+        $ticket -> setticketprice($price);
+       
         $ticket -> setticketstatus(1);
         if(Create($ticket))
         {
-            $statusTrue = true;
+            includeWithVariables("popup.php",array('title'=>'Sucessfully Added','color'=>'#28a745','content' =>$var.' has been added to database'));
+
         }
         else
         {
-            $statusFalse = true;
+            includeWithVariables("popup.php",array('title'=>'Failed to Add ','color'=>'#dc3545','content' =>'Please try again later!'));
+
         }
     }
     else{
-        $stuatusExist = true; 
+        includeWithVariables("popup.php",array('title'=>'Failed to Add ','color'=>'#dc3545','content' =>'Ticket name has already existed'));
+
     }
     }
     }
@@ -44,31 +50,17 @@ $stuatusExist = false;
             <div class="col-4">
                 <form action="" method="get">
                     <div class="form-group">
-                        <label  for="ticket">Ticket</label>
+                        <label for="ticket">Ticket</label>
                         <input type="ticket" class="form-control" id="" aria-describedby=""
                             placeholder="Enter ticket name" name="ticket" required>
-                         <label for="currency-field">Price</label>
-                         <input class="form-control" id="currency-field" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" value="" data-type="currency"  aria-describedby="" placeholder="Enter price" name="price" required>   
+                        <label for="currency-field">Price</label>
+                        <input class="form-control" id="currency-field" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" value=""
+                            data-type="currency" aria-describedby="" placeholder="Enter price" name="price" required>
                     </div>
                     <div class="center-item"><button name="submit" value="submit" type="submit"
                             class="btn-sm btn-dark button-size">Add</button></div>
 
                 </form>
-                <?php
-                    if($statusTrue == true)
-                    {
-                       echo "<p class=\"text-success center-item\">Succesfully Added</p>";
-
-                    }
-                    if($statusFalse == true)
-                    {
-                        echo" <p class=\"text-danger center-item\">Failed To Add</p>";
-                    }
-                    if($stuatusExist == true)
-                    {
-                        echo" <p class=\"text-danger center-item\">Ticket name already exists </p>";
-                    }
-                 ?>
 
             </div>
             <div class="col-4"></div>

@@ -10,115 +10,124 @@ $statusTrue = false;
 $statusFalse = false;
 $stuatusExist = false; 
 if (isset($_POST['submit'])) {
-    $fishname = $_POST['fishname'];
     $fishscientificname = $_POST['fishscientificname'];
-    $habitat = $_POST['habitat'];
-    $diet = $_POST['diet'];
-    $status = $_POST['status'];
-    $size = $_POST['size'];
-    $weight = $_POST['weight'];
-    $gestationperiod = $_POST['gestationeriod'];
-    $achievableage = $_POST['achievableage'];
-    try{
-    $locationid = getId("location",$_POST['locationid']);
-    } catch(Exception $e)
+    if(!checkExist('fish','fishscientificname',$fishscientificname))
     {
-        includeWithVariables("popup.php",array('title'=>'Failed to Select ','color'=>'#dc3545','content' =>'Please enter a valid location!'));
-
-    }
-    try
-    {
-    $typeid = getId("type",$_POST['typeid']);
-    }catch(Exception $e)
-    {
-        includeWithVariables("popup.php",array('title'=>'Failed to Select ','color'=>'#dc3545','content' =>'Please enter a valid type!'));
-
-    }
-    if(strcmp($_POST['fishdetail'],""))
-    {
-        $fishdetail = $_POST['fishdetail'];
-        $j = 0; //Variable for indexing uploaded image 
-        if (!file_exists("../uploads/$fishscientificname")) {
-            mkdir("../uploads/$fishscientificname", 0777, true);
-        }
-        $fp = fopen("../uploads/$fishscientificname/$fishscientificname.txt","w");
-        if ($fp == true)
+        $fishname = $_POST['fishname']; 
+        $habitat = $_POST['habitat'];
+        $diet = $_POST['diet'];
+        $status = $_POST['status'];
+        $size = $_POST['size'];
+        $weight = $_POST['weight'];
+        $gestationperiod = $_POST['gestationeriod'];
+        $achievableage = $_POST['achievableage'];
+        try{
+        $locationid = getId("location",$_POST['locationid']);
+        } catch(Exception $e)
         {
-            if (fwrite($fp,$fishdetail))
+            includeWithVariables("popup.php",array('title'=>'Failed to Select ','color'=>'#dc3545','content' =>'Please enter a valid location!'));
+    
+        }
+        try
+        {
+        $typeid = getId("type",$_POST['typeid']);
+        }catch(Exception $e)
+        {
+            includeWithVariables("popup.php",array('title'=>'Failed to Select ','color'=>'#dc3545','content' =>'Please enter a valid type!'));
+    
+        }
+        if(strcmp($_POST['fishdetail'],""))
+        {
+            $fishdetail = $_POST['fishdetail'];
+            $j = 0; //Variable for indexing uploaded image 
+            if (!file_exists("../uploads/$fishscientificname")) {
+                mkdir("../uploads/$fishscientificname", 0777, true);
+            }
+            $fp = fopen("../uploads/$fishscientificname/$fishscientificname.txt","w");
+            if ($fp == true)
             {
-                $fish = new fish();
-                $fish->setfishname($fishname);
-                $fish->setfishscientificname($fishscientificname);
-                $fish->sethabitat($habitat);
-                $fish->setdiet($diet);
-                $fish->setsize($size);
-                $fish->setweight($weight);
-                $fish->setgestationperiod($gestationperiod);
-                $fish->setachievableage($achievableage);
-                $fish->setlocationid($locationid);
-                $fish->settypeid($typeid);
-                $fish->setstatus($status);
-                $fish->setfishstatus(1);
-                $fish->setfishdetail($fishscientificname.".txt");
-                if(Create($fish))
+                if (fwrite($fp,$fishdetail))
                 {
-
-                    $target_path = "../uploads/$fishscientificname"; //Declaring Path for uploaded images
-                    for ($i = 0; $i < count($_FILES['file']['name']); $i++) {//loop to get individual element from the array
-                         $target_path = "../uploads/$fishscientificname";
-                        $validextensions = array("jpeg", "jpg", "png");  //Extensions which are allowed
-                        $ext = explode('.', basename($_FILES['file']['name'][$i]));//explode file name from dot(.) 
-                        $file_extension = end($ext); //store extensions in the variable
-                      
-                  $target_path = $target_path ."/". $fishscientificname.$i . "." . $ext[count($ext) - 1];//set the target path with a new name of image
-                        $j = $j + 1;//increment the number of uploaded images according to the files in array       
-                      
-                   if (($_FILES["file"]["size"][$i] < 1000000) //Approx. 1000mb files can be uploaded.
-                                && in_array($file_extension, $validextensions)) {
-                            if (move_uploaded_file($_FILES['file']['tmp_name'][$i], $target_path)) {//if file moved to uploads folder
-                             $image = new images();
-                             $image->setimagename($fishscientificname.$i);
-                             $fishid = getId('fish',$fishname);
-                             $image->setfishid($fishid);
-                             Create($image);
-         
-                                 
-                            } else {//if file was not moved.
+                    $fish = new fish();
+                    $fish->setfishname($fishname);
+                    $fish->setfishscientificname($fishscientificname);
+                    $fish->sethabitat($habitat);
+                    $fish->setdiet($diet);
+                    $fish->setsize($size);
+                    $fish->setweight($weight);
+                    $fish->setgestationperiod($gestationperiod);
+                    $fish->setachievableage($achievableage);
+                    $fish->setlocationid($locationid);
+                    $fish->settypeid($typeid);
+                    $fish->setstatus($status);
+                    $fish->setfishstatus(1);
+                    $fish->setfishdetail($fishscientificname.".txt");
+                    if(Create($fish))
+                    {
+    
+                        $target_path = "../uploads/$fishscientificname"; //Declaring Path for uploaded images
+                        for ($i = 0; $i < count($_FILES['file']['name']); $i++) {//loop to get individual element from the array
+                             $target_path = "../uploads/$fishscientificname";
+                            $validextensions = array("jpeg", "jpg", "png");  //Extensions which are allowed
+                            $ext = explode('.', basename($_FILES['file']['name'][$i]));//explode file name from dot(.) 
+                            $file_extension = end($ext); //store extensions in the variable
+                          
+                      $target_path = $target_path ."/". $fishscientificname.$i . "." . $ext[count($ext) - 1];//set the target path with a new name of image
+                            $j = $j + 1;//increment the number of uploaded images according to the files in array       
+                          
+                       if (($_FILES["file"]["size"][$i] < 1000000) //Approx. 1000mb files can be uploaded.
+                                    && in_array($file_extension, $validextensions)) {
+                                if (move_uploaded_file($_FILES['file']['tmp_name'][$i], $target_path)) {//if file moved to uploads folder
+                                 $image = new images();
+                                 $image->setimagename($fishscientificname.$i);
+                                 $fishid = getId('fish',$fishscientificname);
+                                 $image->setfishid($fishid);
+                                 Create($image);
+             
+                                     
+                                } else {//if file was not moved.
+                                    includeWithVariables("popup.php",array('title'=>'Failed To upload','color'=>'#dc3545','content' =>'Please check your images again!'));
+                    
+                                }
+                            } else {//if file size and file type was incorrect.
                                 includeWithVariables("popup.php",array('title'=>'Failed To upload','color'=>'#dc3545','content' =>'Please check your images again!'));
-                
+                                
+                    
                             }
-                        } else {//if file size and file type was incorrect.
-                            includeWithVariables("popup.php",array('title'=>'Failed To upload','color'=>'#dc3545','content' =>'Please check your images again!'));
-                            
-                
                         }
+                        includeWithVariables("popup.php",array('title'=>'Sucessfully Added','color'=>'#28a745','content' =>$fishscientificname.' has been added to database'));
+    
                     }
-                    includeWithVariables("popup.php",array('title'=>'Sucessfully Added','color'=>'#28a745','content' =>$fishscientificname.' has been added to database'));
-
+                    else
+                    {
+                        includeWithVariables("popup.php",array('title'=>'Failed To Added','color'=>'#dc3545','content' =>$fishscientificname.' has not been added to database'));
+    
+                    }
+    
                 }
                 else
                 {
-                    includeWithVariables("popup.php",array('title'=>'Failed To Added','color'=>'#dc3545','content' =>$fishscientificname.' has not been added to database'));
-
+                    includeWithVariables("popup.php",array('title'=>'Failed To Add','color'=>'#dc3545','content' =>'Please try again later!'));
+    
                 }
-
             }
-            else
-            {
+            else{
                 includeWithVariables("popup.php",array('title'=>'Failed To Add','color'=>'#dc3545','content' =>'Please try again later!'));
-
+    
             }
-        }
-        else{
-            includeWithVariables("popup.php",array('title'=>'Failed To Add','color'=>'#dc3545','content' =>'Please try again later!'));
+     }
+     else
+     {
+         includeWithVariables("popup.php",array('title'=>'Failed To Added','color'=>'#dc3545','content' =>'Please enter all information!'));
+    
+     }
+    }
+    else
+    {
+        includeWithVariables("popup.php",array('title'=>'Failed To Added','color'=>'#dc3545','content' =>"Fish's scientific name has already existed"));
+    }
 
-        }
- }
- else
- {
-     includeWithVariables("popup.php",array('title'=>'Failed To Added','color'=>'#dc3545','content' =>'Please enter all information!'));
-
- }
+   
        
          
  
@@ -217,6 +226,10 @@ if (isset($_POST['submit'])) {
                     <div class="form-group">
                         <label for="images">Fish Images</label>
                         <div id="filediv"><input name="file[]" type="file" id="file" multiple /></div>
+                        <div class="slideshow-container" id="preview-img">
+
+                        </div>
+
                     </div>
                     <div class="form-group">
                         <label for="fishdetail">Fish Detail</label>
@@ -234,10 +247,35 @@ if (isset($_POST['submit'])) {
             </div>
             <div class="col-2"></div>
 
-           
+
         </div>
     </div>
 </div>
+<script>
+     var slideIndex = 1;
+        showDivs(slideIndex);
+function plusDivs(n) {
+    showDivs(slideIndex += n);
+}
+
+function showDivs(n) {
+    var i;
+    var x = document.getElementsByClassName("mySlides");
+    if (n > x.length) {
+        slideIndex = 1
+    }
+    if (n < 1) {
+        slideIndex = x.length
+    }
+    for (i = 0; i < x.length; i++) {
+        x[i].style.display = "none";
+    }
+    x[slideIndex - 1].style.display = "block";
+}
+
+
+
+</script>
 <?php
      include_once("footer.php")
   ?>

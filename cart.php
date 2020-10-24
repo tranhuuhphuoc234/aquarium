@@ -1,16 +1,13 @@
 <?php
-    include 'header.php';
     include 'util\DBConnection.php';
     session_start();
 ?>
 <?php
     if (isset($_GET['ticketid'])) {
             $ticketid=$_GET['ticketid'];
-            $acction=(isset($_GET['action'])) ? $_GET['action'] : 'addin';
-            // echo "<pre>";
-            // print_r($quantity);
-            // print_r($ticketid);
-            //  die();
+            $acction=(isset($_GET['action'])) ? $_GET['action'] : 1;
+            
+            // echo '<pre>';
             // var_dump($acction);
             // die();
             $quantity=(isset($_GET["quantity"])) ? $_GET["quantity"] : 1;
@@ -26,7 +23,7 @@
                         'total' => $row['ticketprice'] * $quantity,
                         'quantity' =>$quantity
                     ];
-                    if ($acction == addin) {
+                    if ($acction == 1) {
                         if (isset($_SESSION['cart'][$ticketid])) { 
                             $quantity_new=$_SESSION['cart'][$ticketid]['quantity'] +=$quantity;
                         }else{
@@ -36,8 +33,11 @@
                     if ($acction == 'delete') {
                         unset($_SESSION['cart'][$ticketid]);
                     }
+                    if ($acction == 'update') {
+                        $quantity_new=$_SESSION['cart'][$ticketid]['quantity']=$quantity;
+                    }
                     header("location:showcart.php");
                 }
-    }
+}
 
 ?>
